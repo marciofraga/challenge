@@ -1,0 +1,35 @@
+version: '3'
+
+services: 
+    db:
+        build: 
+            context: database/
+        container_name: challenge-db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME:
+            MONGO_INITDB_ROOT_PASSWORD:
+            MONGO_INITDB_DATABASE: challenge
+        ports: 
+            - 27017:27017
+        networks: 
+            - app-db-net
+    app:
+        build: api/
+        container_name: challenge
+        environment:
+            - SPRING_DATA_MONGODB_URI=mongodb://db:27017/challenge
+            - SPRING_PROFILES_ACTIVE=dev
+        ports: 
+            - 8080:8080
+        volumes:
+            - ./.docker/app
+        depends_on: 
+            - db
+        links:
+            - db
+        networks: 
+            - app-db-net
+networks: 
+    app-db-net:
+        name: db-net
+        driver: bridge

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ChallengeApplication<challenge>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.reclameaqui.challenge.ChallengeApplication",
+            "projectName": "challenge",
+            "args": ""
+        }
+    ]
+}
