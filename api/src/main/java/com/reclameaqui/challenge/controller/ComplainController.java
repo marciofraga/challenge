@@ -47,10 +47,10 @@ public class ComplainController {
     }
 
 
-    @ApiOperation(value = "return one specific complain")
+    @ApiOperation(value = "return one specific complaint")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "return one specific complain"),
-        @ApiResponse(code = 404, message = "no complains found"),
+        @ApiResponse(code = 200, message = "return one specific complaint"),
+        @ApiResponse(code = 404, message = "no complaints found"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
     @GetMapping("/{id}")
@@ -61,9 +61,9 @@ public class ComplainController {
     }
 
 
-    @ApiOperation(value = "save one complain")
+    @ApiOperation(value = "save one complaint")
     @ApiResponses(value = {
-        @ApiResponse(code = 201, message = "return a saved complain"),
+        @ApiResponse(code = 201, message = "return a saved complaint"),
         @ApiResponse(code = 422, message = "validation error"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -76,9 +76,9 @@ public class ComplainController {
     }
 
 
-    @ApiOperation(value = "update one specific complain")
+    @ApiOperation(value = "update one specific complaint")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "return a updated complain"),
+        @ApiResponse(code = 200, message = "return a updated complaint"),
         @ApiResponse(code = 422, message = "validation error"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -92,10 +92,10 @@ public class ComplainController {
     }
 
 
-    @ApiOperation(value = "update one specific complain")
+    @ApiOperation(value = "remove one specific complaint")
     @ApiResponses(value = {
-        @ApiResponse(code = 204, message = "complain succesfully removed"),
-        @ApiResponse(code = 404, message = "no complain found"),
+        @ApiResponse(code = 204, message = "complaint succesfully removed"),
+        @ApiResponse(code = 404, message = "no complaint found"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
     @DeleteMapping("/{id}")

@@ -38,8 +38,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-        .title("Complain Rest API")
-        .description("service to ingest complains and get some data about its geolocation.")
+        .title("Complaint Rest API")
+        .description("service to ingest complaints and get some data about its geolocation.")
         .version("0.1")
         .build();
     }
