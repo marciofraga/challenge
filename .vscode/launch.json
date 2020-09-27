@@ -9,6 +9,16 @@
             "mainClass": "com.reclameaqui.challenge.ChallengeApplication",
             "projectName": "challenge",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiApplication<challenge>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.reclameaqui.challenge.ApiApplication",
+            "projectName": "challenge",
+            "args": ""
         }
     ]
 }

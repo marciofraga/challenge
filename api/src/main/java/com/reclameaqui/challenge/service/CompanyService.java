@@ -8,7 +8,7 @@ import com.reclameaqui.challenge.model.Company;
 public interface CompanyService {
     
     List<Company> findAll();
-    Company findById(String id);
+    Company findById(String cnpj);
     Company create(CompanyDTO complain);
     Company update(CompanyDTO complain, String id);
     void remove(String id);

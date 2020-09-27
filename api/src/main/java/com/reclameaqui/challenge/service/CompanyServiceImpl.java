@@ -28,7 +28,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Company findById(String id) {
         return this.companyRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("company doesnt exist"));
+            .orElseThrow(() -> new NotFoundException("company doesnt exist"));
     }
 
     @Override
@@ -57,7 +57,6 @@ public class CompanyServiceImpl implements CompanyService {
         company.setLocale(companyExist.getLocale());
         company.getLocale().setCity(companyDto.getLocale().getCity());
         company.getLocale().setState(companyDto.getLocale().getState());
-        company.setComplaints(companyExist.getComplaints());
         return this.companyRepository.save(company);
     }
 
@@ -72,6 +71,6 @@ public class CompanyServiceImpl implements CompanyService {
         return new Company(companyDto.getId(), 
                 companyDto.getName(), 
                 companyDto.getCnpj(), 
-                null, null);
+                null);
     }
 }

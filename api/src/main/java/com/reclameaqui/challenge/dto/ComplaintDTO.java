@@ -26,8 +26,8 @@ public class ComplaintDTO {
     @NonNull
     private String description;
 
-    @ApiModelProperty(value = "cnpj company where the complaint happened")
-    @NotBlank(message = "cnpj not be empty")
+    @ApiModelProperty(value = "id company where the complaint happened")
+    @NotBlank(message = "id not be empty")
     @NonNull    
-    private String cnpj;
+    private String idCompany;
 }

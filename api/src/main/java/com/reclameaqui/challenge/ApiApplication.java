@@ -6,10 +6,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackages = "com.reclameaqui.challenge.repository")
-public class ChallengeApplication {
+public class ApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChallengeApplication.class, args);
+		SpringApplication.run(ApiApplication.class, args);
 	}
 
 }

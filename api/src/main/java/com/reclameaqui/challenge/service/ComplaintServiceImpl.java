@@ -1,6 +1,5 @@
 package com.reclameaqui.challenge.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,45 +33,66 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public List<Complaint> findAllByCompany(String company) {
-        List<Complaint> complains = this.complaintRepository.findAllByCompany(company);
-        if(complains.isEmpty())
+    public List<Complaint> findAllByCnpjCompany(String cnpjCompany) {
+        List<Company> company = this.companyRepository.findByCnpj(cnpjCompany);
+        if(company.isEmpty())
             Optional.empty().orElseThrow(() -> new NotFoundException("company not found"));
-        return complains;
-    }
 
-    @Override
-    public List<Complaint> findAllByCompanyLocale(String company, String locale) {
-        List<Complaint> complains = this.complaintRepository.findByCompanyLocale(company, locale);
+        List<Complaint> complains = this.complaintRepository.findAllByCnpjCompany(cnpjCompany);
         if(complains.isEmpty())
-            Optional.empty().orElseThrow(() -> new NotFoundException("company or city doesnt exist"));
+            Optional.empty().orElseThrow(() -> new NotFoundException("no complaints was found for this company"));
+
         return complains;
     }
 
     @Override
-    public List<Complaint> findAllByLocale(String locale) {
-        List<Complaint> complains = this.complaintRepository.findByLocale(locale);
-        if(complains.isEmpty()) 
-            Optional.empty().orElseThrow(() -> new NotFoundException("city doesnt exist"));
-        return complains;
+    public List<Complaint> findAllByCnpjCompanyState(String cnpjCompany, String state) {
+        List<Company> company = this.companyRepository.findByCnpj(cnpjCompany);
+        if(company.isEmpty())
+            Optional.empty().orElseThrow(() -> new NotFoundException("company not found"));
+
+        List<Complaint> complaints = this.complaintRepository.findByCnpjCompanyState(cnpjCompany, state);
+        if(complaints.isEmpty())
+            Optional.empty().orElseThrow(() -> new NotFoundException("no complaints was found for this company in this state"));
+        return complaints;
+    }
+
+    @Override
+    public List<Complaint> findAllByCnpjCompanyStateCity(String cnpjCompany, String state, String city) {
+        List<Company> company = this.companyRepository.findByCnpj(cnpjCompany);
+        if(company.isEmpty())
+            Optional.empty().orElseThrow(() -> new NotFoundException("company not found"));
+        
+        List<Complaint> complaints = this.complaintRepository.findByCnpjCompanyStateCity(cnpjCompany, state, city);
+        if(complaints.isEmpty())
+            Optional.empty().orElseThrow(() -> new NotFoundException("no complaints was found for this company in this state"));
+        return complaints;
+    }
+
+    @Override
+    public List<Complaint> findAllByState(String state) {
+        List<Complaint> complaints = this.complaintRepository.findByState(state);
+        if(complaints.isEmpty()) 
+            Optional.empty().orElseThrow(() -> new NotFoundException("no complaints was found in this state"));
+        return complaints;
+    }
+
+    @Override
+    public List<Complaint> findAllByStatecity(String state, String city) {
+        List<Complaint> complaints = this.complaintRepository.findByStateCity(state, city);
+        if(complaints.isEmpty()) 
+            Optional.empty().orElseThrow(() -> new NotFoundException("no complaints was found in this city"));
+        return complaints;
     }
 
     @Override
     public Complaint create(ComplaintDTO complainDto) {
-        Company company = this.companyRepository.findByCnpj(complainDto.getCnpj());
-        if(company == null)
-            Optional.empty().orElseThrow(() -> new NotFoundException("company doesnt exist"));
+        Company company = this.companyRepository.findById(complainDto.getIdCompany())
+                .orElseThrow(() -> new NotFoundException("company doesnt exist"));
 
         Complaint complaint = fromDto(complainDto);
         complaint.setCompany(company);
-        complaint = this.complaintRepository.save(complaint);
-        
-        List<Complaint> complaints = new ArrayList<Complaint>();
-        complaints.add(complaint);
-        company.setComplaints(complaints);
-        this.companyRepository.save(company);
-        
-        return complaint;
+        return this.complaintRepository.save(complaint);
     }
 
     @Override
@@ -80,9 +100,8 @@ public class ComplaintServiceImpl implements ComplaintService {
         this.complaintRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("complaint doesnt exist"));
         
-        Company company = this.companyRepository.findByCnpj(complaintDto.getCnpj());
-        if(company == null)
-            Optional.empty().orElseThrow(() -> new NotFoundException("company doesnt exist"));
+        Company company = this.companyRepository.findById(complaintDto.getIdCompany())
+                .orElseThrow(() -> new NotFoundException("company doesnt exist"));
 
         complaintDto.setId(id);
         Complaint complaint = fromDto(complaintDto);
@@ -102,5 +121,4 @@ public class ComplaintServiceImpl implements ComplaintService {
         return new Complaint(complainDto.getId(), 
                 complainDto.getTitle(), complainDto.getDescription(), null);
     }
-
 }

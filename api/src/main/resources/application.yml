@@ -3,3 +3,12 @@ spring:
         mongodb:
             uri: mongodb://localhost:27017/challenge
             #uri: ${SPRING_DATA_MONGODB_URI}
+#keycloak:
+#    realm: reclame-aqui
+#    auth-server-url: http://localhost/auth
+#    ssl-required: external
+#    resource: challenge
+#    credentials:
+#        secret: ae046095-ee87-4707-a627-8614541ac6c5
+#    use-resource-role-mappings: true
+#    bearer-only: true

@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/complaints")
-public class ComplainController {
+public class ComplaintController {
     
     @Autowired
     private ComplaintServiceImpl complainService;

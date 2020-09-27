@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+    keycloak:
+        build: .
+        container_name: keycloak_app
+        environment: 
+            - KEYCLOAK_USER=admin
+            - KEYCLOAK_PASSWORD=admin
+        ports: 
+            - 80:8080

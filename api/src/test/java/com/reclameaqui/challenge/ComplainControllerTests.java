@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-public class ComplainControllerTests extends ChallengeApplicationTests{
+public class ComplainControllerTests extends ApiApplicationTests{
     
     @Autowired
     private MockMvc mockMvc;
