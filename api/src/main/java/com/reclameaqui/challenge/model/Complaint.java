@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**represent a complaint that user might do with company */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,11 +18,14 @@ import lombok.Setter;
 @Document
 public class Complaint {
     
+    /**primary key */
     @Id
     private String id;
-
+    /** title complaint */
     private String title;
+    /** description complaint */
     private String description;
+    /** company that user complaint */
     @JsonIgnoreProperties(value = { "target" })
     private Company company;
 }

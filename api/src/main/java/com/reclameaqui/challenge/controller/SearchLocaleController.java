@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/** Controller responsible for searching complaints by state an city */
 @RestController
 @RequestMapping("/public/locale")
 public class SearchLocaleController {
@@ -24,9 +25,16 @@ public class SearchLocaleController {
     @Autowired
     private ComplaintServiceImpl complaintService;
 
-    @ApiOperation(value = "return all complaints from a specific locale")
+    /**
+     * method to search all complaints that a state has
+     * 
+     * @param state - state that user trying to search
+     * @return ResponseEntity<List<Complaint>> - In case success, return 200 HTTP response with all complaints founded.
+     * In case there is no found complaints, return 404 HTTP response with message 'no complaints found'.
+     */
+    @ApiOperation(value = "return all complaints from a specific state")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "return all complaints from a specific locale"),
+        @ApiResponse(code = 200, message = "return all complaints from a specific state"),
         @ApiResponse(code = 404, message = "no complaints found"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -37,6 +45,20 @@ public class SearchLocaleController {
         return ResponseEntity.ok().body(complaints);
     }
 
+    /**
+     * method to search all complaints that a state has in a specific city
+     * 
+     * @param state - state that user trying to search
+     * @param city - city that user trying to search
+     * @return ResponseEntity<List<Complaint>> - In case success, return 200 HTTP response with all complaints founded.
+     * In case there is no found complaints, return 404 HTTP response with message 'no complaints found'.
+     */
+    @ApiOperation(value = "return all complaints from a specific state and city")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "return all complaints from a specific state and city"),
+        @ApiResponse(code = 404, message = "no complaints found"),
+        @ApiResponse(code = 500, message = "an exception happened")
+    })
     @GetMapping("/{state}/{city}")
     @ResponseBody
     public ResponseEntity<List<Complaint>> findAllByLocaleStateCity

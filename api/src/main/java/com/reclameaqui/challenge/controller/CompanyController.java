@@ -26,6 +26,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ApiResponse;
 
+/** Controller responsible for managing companies resources */
 @RestController
 @RequestMapping("/private/companies")
 public class CompanyController {
@@ -33,12 +34,18 @@ public class CompanyController {
     @Autowired
     private CompanyServiceImpl companyService;
 
+    /**
+     * method to retrieve all information about companies
+     * 
+     * @return ResponseEntity<List<Company>> - In case success, return an 200 HTTP response with a list of stored companies.
+     * In case there is no found companies, return 404 HTTP response with message 'no companies found'.
+     * In case there is no authorization, return 401 HTTP response with message 'unauthorized'.
+     */
     @ApiOperation(value = "return a list of companies",
-        authorizations = {
-            @Authorization(value = "oauth2")})
+        authorizations = { @Authorization(value = "oauth2") })
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return a list of companies"),
-        @ApiResponse(code = 404, message = "no company found"),
+        @ApiResponse(code = 404, message = "no companies found"),
         @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -48,9 +55,15 @@ public class CompanyController {
         return ResponseEntity.ok().body(companies);
     }
 
+    /**
+     * method to retrieve information about a specific company
+     * @param id - the indetifier for resource that user trying retrieve
+     * @return ResponseEntity<Company> - In case success, return an 200 HTTP response with a company.
+     * In case there is no found company, return 404 HTTP response with message 'no company found'.
+     * In case there is no authorization, return 401 HTTP response with message 'unauthorized'.
+     */
     @ApiOperation(value = "return one specific company",
-        authorizations = {
-            @Authorization(value = "oauth2")})
+        authorizations = { @Authorization(value = "oauth2") })
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return one specific company"),
         @ApiResponse(code = 404, message = "no company found"),
@@ -63,9 +76,17 @@ public class CompanyController {
         return ResponseEntity.ok().body(company);
     }
 
+    /**
+     * method to save a new company in database 
+     * 
+     * @param companyDto - object with informations about company like name, cnpj and locale
+     * @return Responseentity<Company> - In case success, return an 200 HTTP response with a new company saved.
+     * If one of the fields is missing (name, cnpj and locale), return 422 HTTP response with message 'validation error' 
+     * and especifying which field is missing.
+     * In case there is no authorization, return 401 HTTP response with message 'unauthorized'.
+     */
     @ApiOperation(value = "save one new company",
-        authorizations = {
-            @Authorization(value = "oauth2")})
+        authorizations = { @Authorization(value = "oauth2") })
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return saved company"),
         @ApiResponse(code = 422, message = "validation error"),
@@ -79,9 +100,18 @@ public class CompanyController {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    /**
+     * method to update a specific company with new informations passed in parameter
+     * 
+     * @param id - the indetifier for resource that user trying updated
+     * @param companyDto - object with informations about company like name, cnpj and locale
+     * @return ResponseEntity<Company> - In case success, return 200 HTTP response with a company updated.
+     * If one of the fields is missing (name, cnpj and locale), return 422 HTTP response with message 'validation error' 
+     * and especifying which field is missing.
+     * In case there is no authorization, return 401 HTTP response with message 'unauthorized'.
+     */
     @ApiOperation(value = "update a specific company",
-        authorizations = {
-            @Authorization(value = "oauth2")})
+        authorizations = { @Authorization(value = "oauth2") })
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return a updated companies"),
         @ApiResponse(code = 422, message = "validation error"),
@@ -94,9 +124,16 @@ public class CompanyController {
         return ResponseEntity.ok().body(obj);
     }
 
+    /**
+     * method to remove a specific company
+     * 
+     * @param id - the indetifier for resource that user trying remove
+     * @return ResponseEntity<Void> - In case success, return 204 Http response with no content.
+     * In case there is no found company, return 404 HTTP response with message 'no company found'.
+     * In case there is no authorization, return 401 HTTP response with message 'unauthorized'.
+     */
     @ApiOperation(value = "remove a specific company",
-        authorizations = {
-            @Authorization(value = "oauth2")})
+        authorizations = { @Authorization(value = "oauth2") })
     @ApiResponses(value = {
         @ApiResponse(code = 204, message = "company succesfully removed"),
         @ApiResponse(code = 404, message = "no company found"),

@@ -5,6 +5,7 @@ import java.util.List;
 import com.reclameaqui.challenge.dto.ComplaintDTO;
 import com.reclameaqui.challenge.model.Complaint;
 
+/** interface represent all methods where complaint service has */
 public interface ComplaintService {
     
     List<Complaint> findAll();

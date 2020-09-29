@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
+/** represent a Cors filter that alowed a communication with another services */
 @Component
 public class CorsFilter implements Filter {
 

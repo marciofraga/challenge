@@ -9,23 +9,29 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+/** class dto that represent complaint fields that user view  */
 @Getter
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class ComplaintDTO {
     
+    /**primary key of this complaint */
     private String id;
-    @ApiModelProperty(value = "complain title")
+
+    /**complaint title */
+    @ApiModelProperty(value = "complaint title")
     @NotBlank(message = "title not be empty")
     @NonNull
     private String title;
     
-    @ApiModelProperty(value = "complain description")
+    /**complaint description */
+    @ApiModelProperty(value = "complaint description")
     @NotBlank(message = "description not be empty")
     @NonNull
     private String description;
 
+    /** primary key company */
     @ApiModelProperty(value = "id company where the complaint happened")
     @NotBlank(message = "id not be empty")
     @NonNull    

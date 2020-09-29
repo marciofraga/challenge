@@ -9,6 +9,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+/** represent a locale that company is */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,10 +17,13 @@ import lombok.Setter;
 @Document
 public class Locale {
     
+    /** primary key */
     @Id
     private String id;
+    /** state locale */
     @NonNull
     private String state;
+    /** city locale */
     @NonNull
     private String city;
 }

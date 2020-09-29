@@ -25,29 +25,41 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/** represent configurations about security of Rest API */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
+    /**
+     * Method that define rules about access rest API.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
 
         http.cors().configurationSource(corsConfigurationSource())
-            .and().csrf().disable()
+            .and().csrf().disable() // disable csrf
             .authorizeRequests()
-            .antMatchers("/public/*").permitAll()
-            .antMatchers("/private/*").hasRole("admin")
+            .antMatchers("/public/*").permitAll() // define a public endpoint accessible without authorization
+            .antMatchers("/private/*").hasRole("admin") //define a private endpoint that accessible only authorization and 'admin' role
             .anyRequest()
             .permitAll();
     }
 
+    /**
+     * method to ignore some access about swagger
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
     }
 
+    /**
+     * method that configure authentication from keycloak service
+     * @param auth
+     * @throws Exception
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
@@ -55,17 +67,27 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
     
+    /**
+     * method to define a keycloakconfig bean that used for spring security
+     */
     @Bean
     public KeycloakConfigResolver KeycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
     }
     
+    /**
+     * method to define a strategy session authentication
+     */
     @Bean
     @Override
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
         return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
     }
 
+    /**
+     * method to define cors strategy configuration
+     * @return
+     */
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         List<String> allowOrigins = Arrays.asList("*");

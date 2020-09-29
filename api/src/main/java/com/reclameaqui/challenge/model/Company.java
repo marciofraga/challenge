@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/** represent a company that clients might complaints */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,10 +18,14 @@ import lombok.Setter;
 @Document
 public class Company {
     
+    /** primary key */
     @Id
     private String id;
+    /**name company */
     private String name;
+    /**cnpj company */
     private String cnpj;
+    /**locale company */
     @JsonIgnoreProperties(value = { "target" })
     private Locale locale;
 }

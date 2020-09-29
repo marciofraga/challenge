@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/** Controller responsible for searching complaints by companies, state and city */
 @RestController
 @RequestMapping("/public/companies")
 public class SearchCompanyController {
@@ -24,6 +25,13 @@ public class SearchCompanyController {
     @Autowired
     private ComplaintServiceImpl complaintService;
 
+    /**
+     * method to search all complaints that a company has.
+     * 
+     * @param cnpjCompany - cnpj field to indentify a specific company
+     * @return ResponseEntity<List<Complaint>> - In case success, return 200 HTTP response with all complaints founded.
+     * In case there is no found complaints to a company, return 404 HTTP response with message 'no complaints found'.
+     */
     @ApiOperation(value = "return all complaints from a specific company")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return all complaints from a specific company"),
@@ -37,9 +45,17 @@ public class SearchCompanyController {
         return ResponseEntity.ok().body(complaints);
     }
 
-    @ApiOperation(value = "return all complaints from a specific company has in specific locale")
+    /**
+     * method to search all complaints that a company has in a specific state
+     * 
+     * @param cnpjCompany - cnpj field to identify a specific company.
+     * @param state - state that user trying to search
+     * @return ResponseEntity<List<Complaint>> - In case success, return 200 HTTP response with all complaints founded.
+     * In case there is no found complaints to a company, return 404 HTTP response with message 'no complaints found'.
+     */
+    @ApiOperation(value = "return all complaints from a specific company has in specific state")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "return all complaints from a specific company has in specific locale"),
+        @ApiResponse(code = 200, message = "return all complaints from a specific company has in specific state"),
         @ApiResponse(code = 404, message = "no complaints found"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -53,6 +69,21 @@ public class SearchCompanyController {
         return ResponseEntity.ok().body(complaints);
     }
 
+    /**
+     * method to search all complaints that a company has in a specific state and city
+     * 
+     * @param cnpjCompany - cnpj field to identify a specific company.
+     * @param state - state that user trying to search
+     * @param city - city that user trying to search
+     * @return ResponseEntity<List<Complaint>> - In case success, return 200 HTTP response with all complaints founded.
+     * In case there is no found complaints to a company, return 404 HTTP response with message 'no complaints found'
+     */
+    @ApiOperation(value = "return all complaints from a specific company has in specific state and city")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "return all complaints from a specific company has in specific state and city"),
+        @ApiResponse(code = 404, message = "no complaints found"),
+        @ApiResponse(code = 500, message = "an exception happened")
+    })
     @GetMapping("/{cnpjCompany}/locale/{state}/{city}")
     @ResponseBody
     public ResponseEntity<List<Complaint>> findAllByCompanyLocaleStateCity(
