@@ -23,19 +23,23 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/complaints")
+@RequestMapping("/private/complaints")
 public class ComplaintController {
     
     @Autowired
     private ComplaintServiceImpl complainService;
 
-    @ApiOperation(value = "return a list of complaints")
+    @ApiOperation(value = "return a list of complaints",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return a list of complaints"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 404, message = "no complaints found"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -47,9 +51,12 @@ public class ComplaintController {
     }
 
 
-    @ApiOperation(value = "return one specific complaint")
+    @ApiOperation(value = "return one specific complaint",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return one specific complaint"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 404, message = "no complaints found"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -61,9 +68,12 @@ public class ComplaintController {
     }
 
 
-    @ApiOperation(value = "save one complaint")
+    @ApiOperation(value = "save one complaint",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 201, message = "return a saved complaint"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 422, message = "validation error"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -76,9 +86,12 @@ public class ComplaintController {
     }
 
 
-    @ApiOperation(value = "update one specific complaint")
+    @ApiOperation(value = "update one specific complaint",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return a updated complaint"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 422, message = "validation error"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
@@ -92,9 +105,12 @@ public class ComplaintController {
     }
 
 
-    @ApiOperation(value = "remove one specific complaint")
+    @ApiOperation(value = "remove one specific complaint",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 204, message = "complaint succesfully removed"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 404, message = "no complaint found"),
         @ApiResponse(code = 500, message = "an exception happened")
     })

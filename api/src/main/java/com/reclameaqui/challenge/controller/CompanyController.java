@@ -18,38 +18,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ApiResponse;
 
 @RestController
-@RequestMapping("/companies")
+@RequestMapping("/private/companies")
 public class CompanyController {
  
     @Autowired
     private CompanyServiceImpl companyService;
 
-    @ApiOperation(value = "return a list of companies")
+    @ApiOperation(value = "return a list of companies",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return a list of companies"),
         @ApiResponse(code = 404, message = "no company found"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
     @GetMapping
-    @ResponseBody
     public ResponseEntity<List<Company>> findAll() {
         List<Company> companies = this.companyService.findAll();
         return ResponseEntity.ok().body(companies);
     }
 
-    @ApiOperation(value = "return one specific company")
+    @ApiOperation(value = "return one specific company",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return one specific company"),
         @ApiResponse(code = 404, message = "no company found"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
     @GetMapping("/{id}")
@@ -58,10 +63,13 @@ public class CompanyController {
         return ResponseEntity.ok().body(company);
     }
 
-    @ApiOperation(value = "save one new company")
+    @ApiOperation(value = "save one new company",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return saved company"),
         @ApiResponse(code = 422, message = "validation error"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
     @PostMapping
@@ -71,10 +79,13 @@ public class CompanyController {
         return ResponseEntity.created(uri).body(obj);
     }
 
-    @ApiOperation(value = "update a specific company")
+    @ApiOperation(value = "update a specific company",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "return a updated companies"),
         @ApiResponse(code = 422, message = "validation error"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
     @PutMapping("/{id}")
@@ -83,10 +94,13 @@ public class CompanyController {
         return ResponseEntity.ok().body(obj);
     }
 
-    @ApiOperation(value = "remove a specific company")
+    @ApiOperation(value = "remove a specific company",
+        authorizations = {
+            @Authorization(value = "oauth2")})
     @ApiResponses(value = {
         @ApiResponse(code = 204, message = "company succesfully removed"),
         @ApiResponse(code = 404, message = "no company found"),
+        @ApiResponse(code = 401, message = "unauthorized"),
         @ApiResponse(code = 500, message = "an exception happened")
     })
     @DeleteMapping("/{id}")

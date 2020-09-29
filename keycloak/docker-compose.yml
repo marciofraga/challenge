@@ -4,8 +4,12 @@ services:
     keycloak:
         build: .
         container_name: keycloak_app
+        command: 
+            -Dkeycloak.profile.feature.upload_scripts=enabled
         environment: 
             - KEYCLOAK_USER=admin
             - KEYCLOAK_PASSWORD=admin
+            - KEYCLOAK_IMPORT=realm-export.json
+            - KEYCLOAK_CORS=true
         ports: 
-            - 80:8080
+            - 8081:8080
