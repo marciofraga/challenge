@@ -133,7 +133,7 @@ It is also possible to test the api rest service using the postman. For this, it
 
 1. sending access authorization request
 
-![image of postman](imagens/postman_keycloak.png)
+![image of postman](images/postman_keycloak.png)
 
 2. sending GET request for endpoint `http://localhost:8080/private/companies`
 
