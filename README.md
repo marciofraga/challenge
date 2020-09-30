@@ -135,7 +135,7 @@ It is also possible to test the api rest service using the postman. For this, it
 
 ![image of postman](images/postman_keycloak.png)
 
-2. sending GET request for endpoint `http://localhost:8080/private/companies`
+2. sending GET request for endpoint `http://docker.host.internal:8080/private/companies`
 
 ![image of postman companies](images/postman_companies.png)
 
