@@ -92,7 +92,8 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
         .title("Complaint Rest API")
-        .description("service to ingest complaints and get some data about its geolocation.")
+        .description("This service has an endpoint set that allows registering, " +
+        "altering, removing and consulting companies and making complaints against them.")
         .version("0.1")
         .build();
     }

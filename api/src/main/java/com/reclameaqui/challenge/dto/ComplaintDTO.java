@@ -17,6 +17,7 @@ import lombok.Setter;
 public class ComplaintDTO {
     
     /**primary key of this complaint */
+    @ApiModelProperty(hidden = true)
     private String id;
 
     /**complaint title */

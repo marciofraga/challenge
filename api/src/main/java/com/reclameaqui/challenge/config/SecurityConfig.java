@@ -1,8 +1,6 @@
 package com.reclameaqui.challenge.config;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
@@ -38,8 +36,9 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
 
-        http.cors().configurationSource(corsConfigurationSource())
-            .and().csrf().disable() // disable csrf
+        http.cors().and()
+            .csrf().disable() // disable csrf
+            //.addFilter(new CorsFilter())
             .authorizeRequests()
             .antMatchers("/public/*").permitAll() // define a public endpoint accessible without authorization
             .antMatchers("/private/*").hasRole("admin") //define a private endpoint that accessible only authorization and 'admin' role
@@ -88,16 +87,17 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      * method to define cors strategy configuration
      * @return
      */
+    @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        List<String> allowOrigins = Arrays.asList("*");
-        configuration.setAllowedOrigins(allowOrigins);
-        configuration.setAllowedMethods(Collections.singletonList("*"));
-        configuration.setAllowedHeaders(Collections.singletonList("*"));
-        configuration.setAllowCredentials(true);
+
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(Arrays.asList("*"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", config);
         return source;
-    }
-    
+    }    
 }

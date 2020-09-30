@@ -1,16 +1,16 @@
 spring:
     data:
         mongodb:
-            uri: mongodb://localhost:27017/challenge
-            #uri: ${SPRING_DATA_MONGODB_URI}
+            uri: ${SPRING_DATA_MONGODB_URI}
+            #uri: mongodb://localhost:27017/challenge
 keycloak:
     cors: true
     realm: reclame-aqui
-    auth-server-url: http://localhost:8081/auth
+    auth-server-url: http://host.docker.internal:8081/auth
     ssl-required: external
     resource: challenge-api
     credentials:
-        secret: bf158724-d471-43c2-ac43-0709148f9524
+        secret: 473ea392-8f28-4ccd-a4f9-f9533a459477
     security-constraints[0]:
         authRoles[0]: admin
         securityCollections[0]:

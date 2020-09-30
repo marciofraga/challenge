@@ -9,7 +9,8 @@ services:
         environment: 
             - KEYCLOAK_USER=admin
             - KEYCLOAK_PASSWORD=admin
-            - KEYCLOAK_IMPORT=realm-export.json
+            - KEYCLOAK_IMPORT=reclame-aqui-realm.json
             - KEYCLOAK_CORS=true
+            - REGISTER_URL=http://host.docker.internal:8081/auth
         ports: 
             - 8081:8080

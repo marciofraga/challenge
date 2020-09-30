@@ -17,6 +17,7 @@ import lombok.Setter;
 public class CompanyDTO {
     
     /** primary key of this company */
+    @ApiModelProperty(hidden = true)
     private String id;
     
     /**company name */

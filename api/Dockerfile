@@ -1,7 +1,14 @@
-FROM openjdk:8-alpine
+FROM maven:3.5.2-jdk-8-alpine as MAVEN_BUILD
 
-COPY target/*.jar app.jar
+COPY pom.xml /tmp
+COPY src /tmp/src/
 
-ENTRYPOINT ["java","-jar", "/app.jar"]
+WORKDIR /tmp/
+RUN mvn package -DskipTests
 
-CMD [ "/bin/bash", "/.docker/entrypoint.sh"]
+FROM openjdk:8-jre-alpine 
+
+WORKDIR /app
+COPY --from=MAVEN_BUILD /tmp/target/*.jar /app/app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
